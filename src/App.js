@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
-import styled, { createGlobalStyle } from 'styled-components';
+import React from 'react';
+import { createGlobalStyle } from 'styled-components';
 
-import Menu from './components/Menu';
 import WebMapView from './components/WebMapView';
 
 const GlobalStyle = createGlobalStyle`
@@ -15,30 +14,12 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-const AppContainer = styled.div`
-  display: grid;
-  grid-gap: 1rem;
-  grid-template-columns: 1fr 4fr;
-`;
-
 function App() {
-  const [bikes, setBikes] = useState(true);
-  const [buses, setBuses] = useState(true);
-  const [metro, setMetro] = useState(true);
-
   return (
-    <AppContainer>
+    <div>
       <GlobalStyle></GlobalStyle>
-      <Menu
-        bikes={bikes}
-        setBikes={setBikes}
-        buses={buses}
-        setBuses={setBuses}
-        metro={metro}
-        setMetro={setMetro}
-      ></Menu>
-      <WebMapView bikes={bikes} buses={buses} metro={metro}></WebMapView>
-    </AppContainer>
+      <WebMapView></WebMapView>
+    </div>
   );
 }
 

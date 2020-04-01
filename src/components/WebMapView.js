@@ -14,8 +14,13 @@ export const WebMapView = () => {
   useEffect(() => {
     const setup = async () => {
       // get ESRI components asynchronously
-      const [ArcGISMap, MapView, FeatureLayer] = await loadModules(
-        ['esri/Map', 'esri/views/MapView', 'esri/layers/FeatureLayer'],
+      const [ArcGISMap, MapView, FeatureLayer, LayerList] = await loadModules(
+        [
+          'esri/Map',
+          'esri/views/MapView',
+          'esri/layers/FeatureLayer',
+          'esri/widgets/LayerList',
+        ],
         { css: true }
       );
 
@@ -28,24 +33,45 @@ export const WebMapView = () => {
         basemap: 'gray-vector',
       });
 
-      const metroStations = new FeatureLayer({
-        url:
-          'https://gis.arlingtonva.us/arlgis/rest/services/public/MetroRail/MapServer/0',
-      });
+      let layers = [];
+      const resources = [
+        {
+          id: 'bikeRoutes',
+          url:
+            'https://gis.arlingtonva.us/arlgis/rest/services/public/Bike_Routes/MapServer/4',
+        },
+        {
+          id: 'bikeStations',
+          url:
+            'https://gis.arlingtonva.us/arlgis/rest/services/public/Bike_Routes/MapServer/3',
+        },
+        {
+          id: 'busRoutes',
+          url:
+            'https://gis.arlingtonva.us/arlgis/rest/services/public/Bus_Routes/MapServer/1',
+        },
+        {
+          id: 'busStops',
+          url:
+            'https://gis.arlingtonva.us/arlgis/rest/services/public/Bus_Routes/MapServer/0',
+        },
+        {
+          id: 'metroRoutes',
+          url:
+            'https://gis.arlingtonva.us/arlgis/rest/services/public/MetroRail/MapServer/1',
+        },
+        {
+          id: 'metroStations',
+          url:
+            'https://gis.arlingtonva.us/arlgis/rest/services/public/MetroRail/MapServer/0',
+        },
+      ];
 
-      const bikeshareStations = new FeatureLayer({
-        url:
-          'https://gis.arlingtonva.us/arlgis/rest/services/public/Bike_Routes/MapServer/3',
-      });
+      resources.forEach(resource =>
+        layers.push(new FeatureLayer({ url: resource.url }))
+      );
 
-      const bikeRoutes = new FeatureLayer({
-        url:
-          'https://gis.arlingtonva.us/arlgis/rest/services/public/Bike_Routes/MapServer/4',
-      });
-
-      const mapLayers = [bikeRoutes, bikeshareStations, metroStations];
-
-      map.addMany(mapLayers);
+      map.addMany(layers);
 
       // create view, specifying map, ref, and other options
       const view = new MapView({
@@ -58,6 +84,14 @@ export const WebMapView = () => {
       // wait for view to load before updating state
       // also got idea from https://codesandbox.io/s/jlxz359l9w
       view.when(() => {
+        const layerList = new LayerList({
+          view,
+        });
+
+        view.ui.add(layerList, {
+          position: 'top-right',
+        });
+
         setView(view);
       });
     };
