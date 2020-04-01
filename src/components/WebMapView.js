@@ -45,8 +45,8 @@ export const WebMapView = () => {
       const view = new MapView({
         container: mapRef.current,
         map: map,
-        center: [-77.091, 38.8816],
-        zoom: 13,
+        center: [-77.08598828498384, 38.89004910498292],
+        zoom: 16,
       });
 
       // wait for view to load before updating state
