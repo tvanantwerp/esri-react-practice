@@ -1,8 +1,9 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { loadModules } from 'esri-loader';
 
 export const WebMapView = () => {
-  // create the ref for the containing element
+  // store view in state and create the ref for the containing element
+  const [view, setView] = useState(null);
   const mapRef = useRef();
 
   useEffect(() => {
@@ -12,12 +13,34 @@ export const WebMapView = () => {
         ['esri/Map', 'esri/views/MapView'],
         { css: true }
       );
-      // do stuff
+
+      // bail if the ref is bad
+      // got idea from https://codesandbox.io/s/jlxz359l9w
+      if (!mapRef) return;
+
+      // create map
+      const map = new ArcGISMap({
+        basemap: 'topo-vector',
+      });
+
+      // create view, specifying map, ref, and other options
+      const view = new MapView({
+        container: mapRef.current,
+        map: map,
+        center: [38.8816, 77.091],
+        zoom: 8,
+      });
+
+      // wait for view to load before updating state
+      // also got idea from https://codesandbox.io/s/jlxz359l9w
+      view.when(() => {
+        setView(view);
+      });
     };
     setup();
 
     return () => {
-      // cleanup something
+      setView(null);
     };
   }, []);
 
