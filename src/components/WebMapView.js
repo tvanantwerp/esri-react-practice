@@ -14,8 +14,8 @@ export const WebMapView = () => {
   useEffect(() => {
     const setup = async () => {
       // get ESRI components asynchronously
-      const [ArcGISMap, MapView] = await loadModules(
-        ['esri/Map', 'esri/views/MapView'],
+      const [ArcGISMap, MapView, FeatureLayer] = await loadModules(
+        ['esri/Map', 'esri/views/MapView', 'esri/layers/FeatureLayer'],
         { css: true }
       );
 
@@ -28,12 +28,19 @@ export const WebMapView = () => {
         basemap: 'topo-vector',
       });
 
+      const bikeRoutes = new FeatureLayer({
+        url:
+          'https://gis.arlingtonva.us/arlgis/rest/services/public/Bike_Routes/MapServer/4',
+      });
+
+      map.add(bikeRoutes);
+
       // create view, specifying map, ref, and other options
       const view = new MapView({
         container: mapRef.current,
         map: map,
         center: [-77.091, 38.8816],
-        zoom: 8,
+        zoom: 13,
       });
 
       // wait for view to load before updating state
