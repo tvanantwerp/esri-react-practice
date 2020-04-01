@@ -25,7 +25,12 @@ export const WebMapView = () => {
 
       // create map
       const map = new ArcGISMap({
-        basemap: 'topo-vector',
+        basemap: 'gray-vector',
+      });
+
+      const metroStations = new FeatureLayer({
+        url:
+          'https://gis.arlingtonva.us/arlgis/rest/services/public/MetroRail/MapServer/0',
       });
 
       const bikeshareStations = new FeatureLayer({
@@ -38,8 +43,9 @@ export const WebMapView = () => {
           'https://gis.arlingtonva.us/arlgis/rest/services/public/Bike_Routes/MapServer/4',
       });
 
-      map.add(bikeRoutes);
-      map.add(bikeshareStations);
+      const mapLayers = [bikeRoutes, bikeshareStations, metroStations];
+
+      map.addMany(mapLayers);
 
       // create view, specifying map, ref, and other options
       const view = new MapView({
