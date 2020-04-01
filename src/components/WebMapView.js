@@ -28,12 +28,18 @@ export const WebMapView = () => {
         basemap: 'topo-vector',
       });
 
+      const bikeshareStations = new FeatureLayer({
+        url:
+          'https://gis.arlingtonva.us/arlgis/rest/services/public/Bike_Routes/MapServer/3',
+      });
+
       const bikeRoutes = new FeatureLayer({
         url:
           'https://gis.arlingtonva.us/arlgis/rest/services/public/Bike_Routes/MapServer/4',
       });
 
       map.add(bikeRoutes);
+      map.add(bikeshareStations);
 
       // create view, specifying map, ref, and other options
       const view = new MapView({
