@@ -1,8 +1,12 @@
 import React from 'react';
 
+import WebMapView from './components/WebMapView';
+
 function App() {
   return (
-    <div></div>
+    <div>
+      <WebMapView></WebMapView>
+    </div>
   );
 }
 
