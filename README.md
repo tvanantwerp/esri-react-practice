@@ -1,68 +1,26 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# ESRI React Practice
 
-## Available Scripts
+## Objective
 
-In the project directory, you can run:
+Develop a simple mapping web application that uses React and the ArcGIS API for JavaScript.
 
-### `yarn start`
+## Goals
+- Using Create React App create a new app.
+- Using [esri-loader](https://github.com/Esri/esri-loader) to add a map to the app.
+- Use React to add components that affect the map.
+- Using the [Esri’s JavaScript API](https://developers.arcgis.com/javascript/latest/api-reference/index.html):
+  - Add a FeatureLayer to the map.
+  - Add functionality to toggle the layers visibility.
+  - Add functionality to filter features displayed from the layer.
+- Use git to keep track of your revision history.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Optional – Stretch Goals
+- Use the TypeScript CRA template
+  - *Tom's note*: I will choose not to use TypeScript for this. I've dipped my toes into the TypeScript waters on a few occasions. I'm sure it solves some important problems for some developers, but in my projects it usually just introduced new ones. For the sake of getting this done quickly, I'll skip it.
+- Add an out of the box Esri Widget to the map
+- Add features to the map from GeoJSON
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
-
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+Resources/Hints
+- [Docs](https://developers.arcgis.com/javascript/latest/guide/react/) specific to React and esri-loader.
+- There are properties that you can set on a FeatureLayer to apply filters.
+- A public source of data of [Arlington Bikes](https://gis.arlingtonva.us/arlgis/rest/services/public/Bike_Routes/MapServer)
