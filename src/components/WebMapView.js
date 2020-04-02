@@ -38,6 +38,11 @@ export const WebMapView = () => {
           id: 'bikeRoutes',
           url:
             'https://gis.arlingtonva.us/arlgis/rest/services/public/Bike_Routes/MapServer/4',
+          outfields: ['*'],
+          popupTemplate: {
+            title: 'Bicycle route',
+            content: 'This is a {Route_Type}.',
+          },
         },
         {
           id: 'bikeStations',
@@ -48,6 +53,11 @@ export const WebMapView = () => {
           id: 'busRoutes',
           url:
             'https://gis.arlingtonva.us/arlgis/rest/services/public/Bus_Routes/MapServer/1',
+          outfields: ['*'],
+          popupTemplate: {
+            title: 'Bus Route',
+            content: 'This is the {ID} route.',
+          },
         },
         {
           id: 'busStops',
@@ -58,6 +68,11 @@ export const WebMapView = () => {
           id: 'metroRoutes',
           url:
             'https://gis.arlingtonva.us/arlgis/rest/services/public/MetroRail/MapServer/1',
+          outfields: ['*'],
+          popupTemplate: {
+            title: 'Metro Line',
+            content: 'This is the {COLOR} line.',
+          },
         },
         {
           id: 'metroStations',
@@ -66,9 +81,7 @@ export const WebMapView = () => {
         },
       ];
 
-      resources.forEach(resource =>
-        layers.push(new FeatureLayer({ url: resource.url }))
-      );
+      resources.forEach(resource => layers.push(new FeatureLayer(resource)));
 
       map.addMany(layers);
 
