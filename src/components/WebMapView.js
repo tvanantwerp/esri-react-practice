@@ -12,10 +12,12 @@ let metroLinesLayer = null;
 
 function toggleMetroLineDisplay(values) {
   if (metroLinesLayer) {
-    const joinedValues = values.filter(value => value.length > 0).join(',');
+    const joinedValues = values
+      .filter(value => value.active)
+      .map(value => `'${value.id}'`)
+      .join(',');
     const query =
       joinedValues.length > 0 ? `GRADE IN (${joinedValues})` : '1=2';
-    console.log(query);
     metroLinesLayer.definitionExpression = query;
   }
 }
@@ -23,8 +25,8 @@ function toggleMetroLineDisplay(values) {
 export const WebMapView = () => {
   // store view in state and create the ref for the containing element
   const mapRef = useRef();
-  const [above, setAbove] = useState("'above'");
-  const [below, setBelow] = useState("'below'");
+  const [above, setAbove] = useState({ id: 'above', active: true });
+  const [below, setBelow] = useState({ id: 'below', active: true });
 
   useEffect(() => {
     const setup = async () => {
@@ -84,20 +86,22 @@ export const WebMapView = () => {
     <>
       <input
         type='checkbox'
-        checked={above === "'above'" ? true : false}
+        checked={above.active}
         onChange={() => {
-          setAbove(above === "'above'" ? '' : "'above'");
+          setAbove({ ...above, active: !above.active });
         }}
         id='above'
       />
+      <label htmlFor='above'>View Above-Ground Tracks</label>
       <input
         type='checkbox'
-        checked={below === "'below'" ? true : false}
+        checked={below.active}
         onChange={() => {
-          setBelow(below === "'below'" ? '' : "'below'");
+          setBelow({ ...below, active: !below.active });
         }}
         id='below'
       />
+      <label htmlFor='below'>View Below-Ground Tracks</label>
       <StyledMapContainer className='webmap' ref={mapRef} />
     </>
   );
