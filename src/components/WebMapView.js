@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { loadModules } from 'esri-loader';
 import styled from 'styled-components';
 
@@ -8,7 +8,6 @@ const StyledMapContainer = styled.div`
 
 export const WebMapView = () => {
   // store view in state and create the ref for the containing element
-  const [view, setView] = useState(null);
   const mapRef = useRef();
 
   useEffect(() => {
@@ -91,15 +90,9 @@ export const WebMapView = () => {
         view.ui.add(layerList, {
           position: 'top-right',
         });
-
-        setView(view);
       });
     };
     setup();
-
-    return () => {
-      setView(null);
-    };
   }, []);
 
   return <StyledMapContainer className='webmap' ref={mapRef} />;
